@@ -1,0 +1,19 @@
+{
+  "name": "tpgraphql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx nodemon graphql/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "graphql": "^16.6.0",
+    "graphql-yoga": "^3.9.1",
+    "nodemon": "^2.0.22"
+  }
+}
