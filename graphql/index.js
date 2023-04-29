@@ -3,7 +3,7 @@ import { createServer } from 'node:http';
 import { typeDefs } from './schema/schema.graphql.mjs';
 import { Query } from './resolvers/Query.mjs';
 import { Cv } from './resolvers/Cv.mjs';
-
+import { db } from "./Database/db.mjs";
 // import { users } from './resolvers/users.mjs';
 const yoga = createYoga({
   schema: createSchema({
@@ -12,6 +12,9 @@ const yoga = createYoga({
       Query,Cv
     },
   }),
+  context:{
+    db
+  }
 });
 
 const server = createServer(yoga);
