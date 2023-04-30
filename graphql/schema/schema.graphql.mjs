@@ -16,8 +16,16 @@ input AddCvInput {
   skillsId: [ID],
    userId: ID!
 }
+input EditCvInput {
+  name : String
+  age : Int,
+  job : String,
+  skillsId: [ID],
+}
 type Mutation{
   addCv (addCvInput : AddCvInput!) : Cv!
+  editCv (id: ID! ,editCvInput: EditCvInput!) : Cv!
+  deleteCv (id: ID!) : Cv!
 }
 type Cv {
   id: ID!,
