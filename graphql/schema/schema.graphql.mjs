@@ -9,8 +9,15 @@ type Query {
   getAllCvs: [Cv]
   getCvById(id: ID): Cv
 }
+input AddCvInput {
+  name : String!,
+  age : Int!,
+  job : String!,
+  skillsId: [ID],
+   userId: ID!
+}
 type Mutation{
-  addCv (name : String!,age : Int!,job : String!,skillsId: [ID], userId: ID!) : Cv!
+  addCv (addCvInput : AddCvInput!) : Cv!
 }
 type Cv {
   id: ID!,
