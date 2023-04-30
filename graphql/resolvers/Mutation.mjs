@@ -23,7 +23,7 @@ export const Mutation = {
       userId,
     };
     db.cvs.push(newCv);
-    pubSub.publish('cv',{cv:newCv})
+    pubSub.publish('cv',{cv:{cv:newCv,mutationType:"Add"}})
     return newCv;
   },
   editCv: (_, { id, editCvInput }, { db,pubSub }) => {
@@ -54,7 +54,7 @@ export const Mutation = {
     }
     cv.id = parseInt(cv.id);
     console.log(cv);
-    pubSub.publish('cv',{cv:cv})
+    pubSub.publish('cv',{cv:{cv:cv,mutationType:"Edit"}})
     return cv;
   },
   deleteCv: (_, { id }, { db ,pubSub}) => {
@@ -63,7 +63,8 @@ export const Mutation = {
       throw new GraphQLError(`Cv with id '${id}' not found.`);
     }
     const [cv]=db.cvs.splice(indexCv,1);
-    pubSub.publish('cv',{cv:cv})
+    pubSub.publish('cv',{cv:{cv:cv,mutationType:"Delete"}})
+
     return cv
   },
 };

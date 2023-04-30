@@ -3,6 +3,11 @@ enum RoleEnum{
   Admin,
   User
 }
+enum MutationEnum{
+  Edit,
+  Delete,
+  Add
+}
 type Query {
   hello(name: String): String!
   getAllUsers: [User]
@@ -28,7 +33,11 @@ type Mutation{
   deleteCv (id: ID!) : Cv!
 }
 type Subscription{
-  cv:Cv!
+  cv: CvSubPayload!
+}
+type CvSubPayload{
+  mutationType: MutationEnum!,
+  cv: Cv!
 }
 type Cv {
   id: ID!,
