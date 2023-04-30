@@ -1,6 +1,6 @@
 import { GraphQLError } from "graphql";
 export const Mutation = {
-  addCv: (_, { addCvInput }, { db }) => {
+  addCv: (_, { addCvInput }, { db,pubSub }) => {
     const { name, age, job, skillsId, userId } = addCvInput;
     if (!db.users.map((user) => user.id).includes(parseInt(userId)))
       throw new GraphQLError(`User with id '${userId}' not found.`);
@@ -23,9 +23,10 @@ export const Mutation = {
       userId,
     };
     db.cvs.push(newCv);
+    pubSub.publish('cv',{cv:newCv})
     return newCv;
   },
-  editCv: (_, { id, editCvInput }, { db }) => {
+  editCv: (_, { id, editCvInput }, { db,pubSub }) => {
     if (!db.cvs.map((cv) => cv.id).includes(parseInt(id)))
       throw new GraphQLError(`Cv with id '${id}' not found.`);
     const cv = db.cvs.find((cv) => (cv.id = id));
@@ -53,14 +54,16 @@ export const Mutation = {
     }
     cv.id = parseInt(cv.id);
     console.log(cv);
+    pubSub.publish('cv',{cv:cv})
     return cv;
   },
-  deleteCv: (_, { id }, { db }) => {
+  deleteCv: (_, { id }, { db ,pubSub}) => {
     const indexCv = db.cvs.findIndex((cv)=>cv.id==id);
     if(indexCv === -1){
       throw new GraphQLError(`Cv with id '${id}' not found.`);
     }
     const [cv]=db.cvs.splice(indexCv,1);
+    pubSub.publish('cv',{cv:cv})
     return cv
   },
 };

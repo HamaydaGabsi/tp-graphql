@@ -27,6 +27,9 @@ type Mutation{
   editCv (id: ID! ,editCvInput: EditCvInput!) : Cv!
   deleteCv (id: ID!) : Cv!
 }
+type Subscription{
+  cv:Cv!
+}
 type Cv {
   id: ID!,
   name : String!,

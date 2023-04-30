@@ -1,11 +1,11 @@
-import { createSchema, createYoga } from 'graphql-yoga';
+import { createPubSub, createSchema, createYoga } from 'graphql-yoga';
 import { createServer } from 'node:http';
 import { typeDefs } from './schema/schema.graphql.mjs';
 import { Query } from './resolvers/Query.mjs';
 import { Mutation } from './resolvers/Mutation.mjs';
 import { Cv } from './resolvers/Cv.mjs';
 import { db } from "./Database/db.mjs";
-// import { users } from './resolvers/users.mjs';
+const pubSub = createPubSub();
 const yoga = createYoga({
   schema: createSchema({
     typeDefs,
@@ -14,7 +14,8 @@ const yoga = createYoga({
     },
   }),
   context:{
-    db
+    db,
+    pubSub 
   }
 });
 
